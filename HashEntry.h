@@ -5,8 +5,37 @@
 #ifndef JOIN_HASHENTRY_H
 #define JOIN_HASHENTRY_H
 
-
+template<typename KEY, typename VALUE>
 class HashEntry {
+private:
+    KEY key;
+    VALUE value;
+    HashEntry *next;
+public:
+    KEY getKey() {
+        return key;
+    }
+
+    VALUE getValue() {
+        return value;
+    }
+
+    HashEntry *getNext() {
+        return next;
+    }
+
+    void setKey(KEY newKey) {
+        key = newKey;
+    }
+
+    void setValue(VALUE newValue) {
+        value = newValue;
+    }
+
+    void setNext(HashEntry *newNext) {
+        next = newNext;
+    }
+
 
 };
 
