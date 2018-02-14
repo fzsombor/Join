@@ -12,6 +12,11 @@ private:
     VALUE value;
     HashEntry *next;
 public:
+    HashEntry(KEY newKey, VALUE newValue){
+        key = newKey;
+        value = newValue;
+        next = NULL;
+    }
     KEY getKey() {
         return key;
     }

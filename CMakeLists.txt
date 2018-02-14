@@ -3,4 +3,4 @@ project(Join)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(Join main.cpp HashTable.h HashEntry.h HashJoin.cpp HashJoin.h Hash.h)
+add_executable(Join main.cpp HashTable.h HashEntry.h HashJoin.cpp HashJoin.h Hash.h Table.h)

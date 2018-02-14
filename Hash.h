@@ -5,11 +5,12 @@
 #ifndef JOIN_HASH_H
 #define JOIN_HASH_H
 
+
 template <typename KEY>
 class Hash {
 
-    long operator()(KEY key){
-        return (long) key % TABLE_SIZE;
+    int operator()(KEY key){
+        return (int) key % TABLE_SIZE;
     }
 };
 
