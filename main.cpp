@@ -24,15 +24,7 @@ int main(int argc, char *argv[]) {
 
 
 
-//enum for switch-case
-    static enum typeValue {
-        INT,
-        STRING,
-        LONG,
-        CHAR,
-        DOUBLE,
-        SHORT
-    };
+
 
     /*
     typeValue hashIt(std::string const &inString) {
@@ -53,26 +45,7 @@ int main(int argc, char *argv[]) {
 
     std::string type;
 
-    switch (hashIt(type)) {
-        case INT:
 
-            for (int i = 0; i <; ++i) {
-
-            }
-
-            break;
-        case STRING:
-            break;
-        case LONG:
-            break;
-        case CHAR:
-            break;
-        case DOUBLE:
-            break;
-        case SHORT:
-        default:
-            std::cerr << "Error: Unsupported column type.";
-    }
      */
 
 
