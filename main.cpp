@@ -24,6 +24,9 @@ int main(int argc, char *argv[]) {
     std::string lhsColumn;
     std::string rhsColumn;
 
+    int lhsColumnN;  //Literal column number -1
+    int rhsColumnN;
+
     std::string delimiter = "=";
     size_t posT = 0;
     posT = equation.find(delimiter);
@@ -31,15 +34,17 @@ int main(int argc, char *argv[]) {
     rhsColumn = equation.substr(posT+delimiter.length());
 
 
+    for (int i = 0; i < rhsTable.getColumnSize(); ++i) {
+
+        if(rhsTable.getColumnName(i) == rhsColumn)
+        {
+         rhsColumnN = i;
+            break;
+        }
+
+    }
 
 
-
-
-
-
-
- //   for (std::vector<std::string>::const_iterator i = lhsColumns.begin(); i != lhsColumns.end(); ++i)
- //       std::cout << *i << ' ';
 
 
 

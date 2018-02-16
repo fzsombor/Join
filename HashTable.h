@@ -7,22 +7,23 @@
 
 #include "HashEntry.h"
 #include "Hash.h"
+#include "Table.h"
 
 template<typename KEY, typename VALUE, typename FUNCTION = Hash<KEY>>
 class HashTable {
 private:
-    HashEntry<KEY, VALUE> **table;
+    HashEntry<KEY, VALUE> **hashtable;
     FUNCTION hashFunc;
 public:
 
     HashTable() {
-        table = new HashEntry<KEY, VALUE> *[1]();
+        hashtable = new HashEntry<KEY, VALUE> *[1]();
     }
 
     bool put(KEY &key, VALUE &value) {
         int hashValue = hashFunc(key);
         HashEntry *prev = nullptr;
-        HashEntry *actual = table[hashValue];
+        HashEntry *actual = hashtable[hashValue];
 
         while (actual != nullptr) {
             prev = actual;
@@ -34,14 +35,21 @@ public:
 
             if (prev == nullptr) {
 
-                table[hashValue] = actual;
+                hashtable[hashValue] = actual;
             } else{
                 prev->setNext(actual);
             }
         }
     }
 
-    bool createTable();
+    //create table from column param @columnN
+    bool createTable(Table& table, int columnN){
+
+        for (int i = 0; i < table.getRowSize(); ++i) {
+                table.tableData[0][0]
+        }
+
+    }
 
 };
 

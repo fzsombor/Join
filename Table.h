@@ -39,9 +39,12 @@ private:
     std::ifstream file;
     std::vector<Column> columns;
     int rowNumber;
-    std::vector<std::vector<Field *>> tableData;
+
 
 public:
+    std::vector<std::vector<Field *>> tableData;
+
+
     Table(std::string filePath) {
         this->filePath = filePath;
         rowNumber = 0;
@@ -149,6 +152,17 @@ public:
 
         return ERROR;
 
+    }
+
+    int getColumnSize() {
+        return columns.size();
+    }
+
+    int getRowSize() {
+        return rowNumber;
+    }
+    std::string getColumnName(int n){
+        return columns[n].name;
     }
 
 
