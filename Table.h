@@ -8,10 +8,7 @@
 #include <iostream>
 
 #include "Field.h"
-#include "Fields/IntField.h"
-#include "Fields/CharField.h"
-#include "Fields/StringField.h"
-#include "Fields/DoubleField.h"
+
 
 class Table {
 public:
@@ -22,16 +19,7 @@ public:
         Column(std::string name, std::string type) : name(name), type(type) {}
     };
 
-    //enum for switch-case
-    enum typeValue {
-        INT,
-        STRING,
-        LONG,
-        CHAR,
-        DOUBLE,
-        SHORT,
-        ERROR
-    };
+
 
 
 private:
@@ -107,30 +95,10 @@ public:
                 std::string delimiter = ",";
                 size_t pos = line.find(delimiter);
                 std::string token = line.substr(0, pos);
-                switch (hashIt(columns[i].type)) {
-                    case INT:
-                        tableData[i].push_back(new IntField(token));
-                        break;
-                    case STRING:
-                        tableData[i].push_back(new StringField(token));
-                        break;
-                        /*    case LONG:
-                                tableData[i].push_back(new IntField(token));
-                                break; */
-                    case CHAR:
-                        tableData[i].push_back(new CharField(token));   //not working with char TODO: CharField ctor
-                        break;
-                    case DOUBLE:
-                        tableData[i].push_back(new DoubleField(token));
-                        break;
-                        /*    case SHORT:
-                                tableData[i].push_back(new IntField(token));
-                                break; */
-                    default:
-                        std::cerr << "Error: Unsupported column type.";
-                        break;
 
-                }
+                tableData[i].push_back(new Field(token, columns[i].type));
+
+
                 line.erase(0, pos + delimiter.length());
 
 
@@ -140,19 +108,7 @@ public:
     }
 
 
-    typeValue hashIt(std::string const &inString) {
-        if (inString == "int") return INT;
-        if (inString == "string") return STRING;
-        if (inString == "long") return LONG;
-        if (inString == "char") return CHAR;
-        if (inString == "double") return DOUBLE;
-        if (inString == "short") return SHORT;
-        std::cerr << "Error: Unsupported column type.";
 
-
-        return ERROR;
-
-    }
 
     int getColumnSize() {
         return columns.size();
@@ -164,6 +120,8 @@ public:
     std::string getColumnName(int n){
         return columns[n].name;
     }
+
+
 
 
 };

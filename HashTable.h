@@ -46,7 +46,7 @@ public:
     bool createTable(Table& table, int columnN){
 
         for (int i = 0; i < table.getRowSize(); ++i) {
-                table.tableData[0][0]
+                table.tableData[columnN][i].getValue;
         }
 
     }
