@@ -103,7 +103,7 @@ public:
                 switch (hashIt(columns[i].type)) {
                     case INT:
 
-                        tableData[i].push_back();
+                        tableData[i].push_back(new IntField(token));
                         break;
                     case STRING:
                         std::vector<std::string> *tempS = new std::vector<std::string>();
