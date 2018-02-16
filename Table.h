@@ -6,6 +6,8 @@
 #define JOIN_TABLES_H
 
 
+#include "Field.h"
+
 class Table {
 public:
     struct Column {
@@ -31,7 +33,7 @@ private:
     std::ifstream file;
     std::vector<Column> columns;
     int rowNumber;
-    std::vector<std::array> tableData;
+    std::vector<std::vector<Field>> tableData;
 
 public:
     Table(std::string filePath) {
@@ -70,8 +72,8 @@ public:
 
             switch (hashIt(columns[i].type)) {
                 case INT:
-                    std::vector<int> *tempI = new std::vector<int>();
-                    tableData[i] = tempI;
+                    std::vector<Field> *tempI = new std::vector<Field>();
+                    tableData[i] = *tempI;
                     break;
                 case STRING:
                     std::vector<std::string> *tempS = new std::vector<std::string>();
