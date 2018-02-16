@@ -7,6 +7,7 @@
 
 
 #include "Field.h"
+#include "Fields/IntField.h"
 
 class Table {
 public:
@@ -33,7 +34,7 @@ private:
     std::ifstream file;
     std::vector<Column> columns;
     int rowNumber;
-    std::vector<std::vector<Field>> tableData;
+    std::vector<Field> tableData[];
 
 public:
     Table(std::string filePath) {
@@ -57,12 +58,12 @@ public:
         while ((pos = line.find(delimiter)) != std::string::npos) {     //parse the columns
             token = line.substr(0, pos);
             size_t posT = 0;
-            posT = token.find(":");
+            posT = token.find(':');
             columns.push_back(Column(token.substr(0, posT), token.substr(posT + delimiter.length())));
             line.erase(0, pos + delimiter.length());
         }
         size_t posT = 0;
-        posT = line.find(":");
+        posT = line.find(':');
         columns.push_back(Column(line.substr(0, posT), line.substr(posT + delimiter.length())));
 
         while (std::getline(file, line))    //count the rows
@@ -70,34 +71,8 @@ public:
 
         for (int i = 0; i < columns.size(); ++i) {
 
-            switch (hashIt(columns[i].type)) {
-                case INT:
-                    std::vector<Field> *tempI = new std::vector<Field>();
-                    tableData[i] = *tempI;
-                    break;
-                case STRING:
-                    std::vector<std::string> *tempS = new std::vector<std::string>();
-                    tableData[i] = tempS;
-                    break;
-                case LONG:
-                    std::vector<long> *tempL = new std::vector<long>();
-                    tableData[i] = tempL;
-                    break;
-                case CHAR:
-                    std::vector<char> *tempC = new std::vector<char>();
-                    tableData[i] = tempC;
-                    break;
-                case DOUBLE:
-                    std::vector<double> *tempD = new std::vector<double>();
-                    tableData[i] = tempD;
-                    break;
-                case SHORT:
-                    std::vector<short> *tempSh = new std::vector<short>();
-                    tableData[i] = tempSh;
-                    break;
-                default:
-                    std::cerr << "Error: Unsupported column type.";
-            }
+            std::vector<Field> *tempI = new std::vector<Field>();
+
 
 
         }
@@ -112,6 +87,7 @@ public:
     }
 
     bool loadTableData() {
+        tableData = new std::vector<Field>[columns.size()];
         file.seekg(0, file.beg);
         std::string line;
         getline(file, line); //discarding the column headers
@@ -124,7 +100,34 @@ public:
                 std::string delimiter = ",";
                 size_t pos = line.find(delimiter);
                 std::string token = line.substr(0, pos);
-                tableData[i].push_back(token);
+                switch (hashIt(columns[i].type)) {
+                    case INT:
+
+                        tableData[i].push_back();
+                        break;
+                    case STRING:
+                        std::vector<std::string> *tempS = new std::vector<std::string>();
+                        tableData[i] = *tempS;
+                        break;
+                    case LONG:
+                        std::vector<long> *tempL = new std::vector<long>();
+                        tableData[i] = tempL;
+                        break;
+                    case CHAR:
+                        std::vector<char> *tempC = new std::vector<char>();
+                        tableData[i] = tempC;
+                        break;
+                    case DOUBLE:
+                        std::vector<double> *tempD = new std::vector<double>();
+                        tableData[i] = tempD;
+                        break;
+                    case SHORT:
+                        std::vector<short> *tempSh = new std::vector<short>();
+                        tableData[i] = tempSh;
+                        break;
+                    default:
+                        std::cerr << "Error: Unsupported column type.";
+                }
 
 
             }
@@ -132,12 +135,6 @@ public:
 
     }
 
-    template<typename T>
-
-    T **createColumnData(int colNum) {
-        T *data = new T[rowNumber]();
-        tableData.insert(colNum, data);
-    }
 
 
     typeValue hashIt(std::string const &inString) {

@@ -5,6 +5,7 @@
 #ifndef JOIN_DOUBLEFIELD_H
 #define JOIN_DOUBLEFIELD_H
 
+#include <string>
 #include "../Field.h"
 
 class DoubleField : public Field {
@@ -12,7 +13,9 @@ class DoubleField : public Field {
 private:
     double value;
 public:
-    DoubleField(double value): value(value){}
+    DoubleField(std::string value) {
+        this->value = std::stod(value);
+    }
 
     double getValue(){
         return value;

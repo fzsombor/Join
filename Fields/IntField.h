@@ -5,6 +5,7 @@
 #ifndef JOIN_INTFIELD_H
 #define JOIN_INTFIELD_H
 
+#include <string>
 #include "../Field.h"
 
 class IntField : public Field {
@@ -12,7 +13,9 @@ class IntField : public Field {
 private:
     int value;
 public:
-    IntField(int value) : value(value){}
+    IntField(std::string value) {
+        this->value = std::stoi(value);
+    }
 
     int getValue(){
         return value;
