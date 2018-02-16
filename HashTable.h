@@ -21,18 +21,18 @@ public:
 
     bool put(KEY &key, VALUE &value) {
         int hashValue = hashFunc(key);
-        HashEntry *prev = NULL;
+        HashEntry *prev = nullptr;
         HashEntry *actual = table[hashValue];
 
-        while (actual != NULL) {
+        while (actual != nullptr) {
             prev = actual;
             actual = actual->getNext();
         }
 
-        if (actual == NULL) {
+        if (actual == nullptr) {
             actual = new HashEntry(key, value);
 
-            if (prev == NULL) {
+            if (prev == nullptr) {
 
                 table[hashValue] = actual;
             } else{
@@ -40,6 +40,8 @@ public:
             }
         }
     }
+
+    bool createTable()
 
 };
 

@@ -18,35 +18,24 @@ int main(int argc, char *argv[]) {
     std::string rhsFilePath = argv[2];
     std::string equation = argv[2];
 
-    Table *lhsTable = new Table(lhsFilePath);
-    Table *rhsTable = new Table(rhsFilePath);
+    Table lhsTable(lhsFilePath);
+    Table rhsTable(rhsFilePath);
+
+    std::string lhsColumn;
+    std::string rhsColumn;
+
+    std::string delimiter = "=";
+    size_t posT = 0;
+    posT = equation.find(delimiter);
+    lhsColumn = equation.substr(0,posT);
+    rhsColumn = equation.substr(posT+delimiter.length());
 
 
 
 
 
 
-    /*
-    typeValue hashIt(std::string const &inString) {
-        if (inString == "int") return INT;
-        if (inString == "string") return STRING;
-        if (inString == "long") return LONG;
-        if (inString == "char") return CHAR;
-        if (inString == "double") return DOUBLE;
-        if (inString == "short") return SHORT;
-        std::cerr << "Error: Unsupported column type.";
 
-
-        return NULL;
-
-    }
-
-
-
-    std::string type;
-
-
-     */
 
 
  //   for (std::vector<std::string>::const_iterator i = lhsColumns.begin(); i != lhsColumns.end(); ++i)

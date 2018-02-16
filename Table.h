@@ -5,9 +5,13 @@
 #ifndef JOIN_TABLES_H
 #define JOIN_TABLES_H
 
+#include <iostream>
 
 #include "Field.h"
 #include "Fields/IntField.h"
+#include "Fields/CharField.h"
+#include "Fields/StringField.h"
+#include "Fields/DoubleField.h"
 
 class Table {
 public:
@@ -19,13 +23,14 @@ public:
     };
 
     //enum for switch-case
-    static enum typeValue {
+    enum typeValue {
         INT,
         STRING,
         LONG,
         CHAR,
         DOUBLE,
-        SHORT
+        SHORT,
+        ERROR
     };
 
 
@@ -34,7 +39,7 @@ private:
     std::ifstream file;
     std::vector<Column> columns;
     int rowNumber;
-    std::vector<Field> tableData[];
+    std::vector<std::vector<Field>> tableData;
 
 public:
     Table(std::string filePath) {
@@ -43,6 +48,9 @@ public:
         open();
         loadTableData();
 
+
+
+        tableData[0][0].print();
 
     }
 
@@ -66,14 +74,11 @@ public:
         posT = line.find(':');
         columns.push_back(Column(line.substr(0, posT), line.substr(posT + delimiter.length())));
 
-        while (std::getline(file, line))    //count the rows
-            ++rowNumber;
+       // while (std::getline(file, line))    //count the rows
+       //     ++rowNumber;
 
         for (int i = 0; i < columns.size(); ++i) {
-
-            std::vector<Field> *tempI = new std::vector<Field>();
-
-
+            tableData.push_back(std::vector<Field>());
 
         }
 
@@ -86,8 +91,8 @@ public:
 
     }
 
-    bool loadTableData() {
-        tableData = new std::vector<Field>[columns.size()];
+    void loadTableData() {
+
         file.seekg(0, file.beg);
         std::string line;
         getline(file, line); //discarding the column headers
@@ -102,29 +107,23 @@ public:
                 std::string token = line.substr(0, pos);
                 switch (hashIt(columns[i].type)) {
                     case INT:
-
-                        tableData[i].push_back(new IntField(token));
+                        tableData[i].push_back(IntField(token));
                         break;
                     case STRING:
-                        std::vector<std::string> *tempS = new std::vector<std::string>();
-                        tableData[i] = *tempS;
+                        tableData[i].push_back(StringField(token));
                         break;
-                    case LONG:
-                        std::vector<long> *tempL = new std::vector<long>();
-                        tableData[i] = tempL;
-                        break;
+                /*    case LONG:
+                        tableData[i].push_back(new IntField(token));
+                        break; */
                     case CHAR:
-                        std::vector<char> *tempC = new std::vector<char>();
-                        tableData[i] = tempC;
+                        tableData[i].push_back(CharField(token));   //not working with char TODO: CharField ctor
                         break;
                     case DOUBLE:
-                        std::vector<double> *tempD = new std::vector<double>();
-                        tableData[i] = tempD;
+                        tableData[i].push_back(DoubleField(token));
                         break;
-                    case SHORT:
-                        std::vector<short> *tempSh = new std::vector<short>();
-                        tableData[i] = tempSh;
-                        break;
+                /*    case SHORT:
+                        tableData[i].push_back(new IntField(token));
+                        break; */
                     default:
                         std::cerr << "Error: Unsupported column type.";
                 }
@@ -147,7 +146,7 @@ public:
         std::cerr << "Error: Unsupported column type.";
 
 
-        return NULL;
+        return ERROR;
 
     }
 

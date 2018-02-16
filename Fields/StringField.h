@@ -18,6 +18,16 @@ public:
         return value;
     }
 
+    std::ostream& operator<<( std::ostream& output) const{
+        output << this->value;
+        return output;
+
+    }
+
+    void print() {
+        std::cout << value;
+    }
+
 };
 
 #endif //JOIN_STRINGFIELD_H

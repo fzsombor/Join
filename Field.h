@@ -6,7 +6,12 @@
 #define JOIN_FIELD_H
 
 
-virtual class Field {
+class Field {
+public:
+
+
+   virtual void print() const = 0;
+
 
 
 };

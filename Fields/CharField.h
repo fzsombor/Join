@@ -6,16 +6,29 @@
 #define JOIN_CHARFIELD_H
 
 
+#include <string>
 #include "../Field.h"
 
 class CharField : public Field {
 private:
     char value;
 public:
-    CharField(char value) : value(value){}
+    CharField(std::string value){
+        //this->value =  value;
+    }
 
     char getValue(){
         return value;
+    }
+
+    std::ostream& operator<<( std::ostream& output) const{
+        output << this->value;
+        return output;
+
+    }
+
+    void print() {
+        std::cout << value;
     }
 
 };
