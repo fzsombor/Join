@@ -16,7 +16,7 @@ private:
 public:
 
     HashTable() {
-        table = new HashEntry<KEY, VALUE> *[TABLE_SIZE]();
+        table = new HashEntry<KEY, VALUE> *[1]();
     }
 
     bool put(KEY &key, VALUE &value) {
@@ -41,7 +41,7 @@ public:
         }
     }
 
-    bool createTable()
+    bool createTable();
 
 };
 

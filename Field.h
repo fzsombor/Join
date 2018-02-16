@@ -7,13 +7,10 @@
 
 
 class Field {
+
 public:
-
-
+    Field(){}
    virtual void print() const = 0;
-
-
-
 };
 
 

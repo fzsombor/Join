@@ -39,7 +39,7 @@ private:
     std::ifstream file;
     std::vector<Column> columns;
     int rowNumber;
-    std::vector<std::vector<Field>> tableData;
+    std::vector<std::vector<Field *>> tableData;
 
 public:
     Table(std::string filePath) {
@@ -49,8 +49,7 @@ public:
         loadTableData();
 
 
-
-        tableData[0][0].print();
+        tableData[2][0]->print();
 
     }
 
@@ -74,11 +73,11 @@ public:
         posT = line.find(':');
         columns.push_back(Column(line.substr(0, posT), line.substr(posT + delimiter.length())));
 
-       // while (std::getline(file, line))    //count the rows
-       //     ++rowNumber;
+        // while (std::getline(file, line))    //count the rows
+        //     ++rowNumber;
 
         for (int i = 0; i < columns.size(); ++i) {
-            tableData.push_back(std::vector<Field>());
+            tableData.push_back(std::vector<Field *>());
 
         }
 
@@ -107,33 +106,35 @@ public:
                 std::string token = line.substr(0, pos);
                 switch (hashIt(columns[i].type)) {
                     case INT:
-                        tableData[i].push_back(IntField(token));
+                        tableData[i].push_back(new IntField(token));
                         break;
                     case STRING:
-                        tableData[i].push_back(StringField(token));
+                        tableData[i].push_back(new StringField(token));
                         break;
-                /*    case LONG:
-                        tableData[i].push_back(new IntField(token));
-                        break; */
+                        /*    case LONG:
+                                tableData[i].push_back(new IntField(token));
+                                break; */
                     case CHAR:
-                        tableData[i].push_back(CharField(token));   //not working with char TODO: CharField ctor
+                        tableData[i].push_back(new CharField(token));   //not working with char TODO: CharField ctor
                         break;
                     case DOUBLE:
-                        tableData[i].push_back(DoubleField(token));
+                        tableData[i].push_back(new DoubleField(token));
                         break;
-                /*    case SHORT:
-                        tableData[i].push_back(new IntField(token));
-                        break; */
+                        /*    case SHORT:
+                                tableData[i].push_back(new IntField(token));
+                                break; */
                     default:
                         std::cerr << "Error: Unsupported column type.";
+                        break;
+
                 }
+                line.erase(0, pos + delimiter.length());
 
 
             }
         }
 
     }
-
 
 
     typeValue hashIt(std::string const &inString) {

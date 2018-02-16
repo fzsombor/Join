@@ -31,7 +31,7 @@ public:
 
     }
 
-    void print() {
+    void print() const {
         std::cout << value;
     }
 
