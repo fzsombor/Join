@@ -7,16 +7,12 @@
 
 
 #include <ostream>
-#include "ValueClass.h"
-#include "ValueClasses/IntValue.h"
-#include "ValueClasses/StringValue.h"
-#include "ValueClasses/DoubleValue.h"
-#include "ValueClasses/CharValue.h"
+#include "Expr.h"
 
 class Field {
 
 private:
-    ValueClass *value;
+    Expr value;
 
     //enum for switch-case
     enum typeValue {
@@ -29,28 +25,22 @@ private:
         ERROR
     };
 
+
 public:
-    Field(std::string token, const std::string type){
+    Field(std::string token, const std::string type) {
 
         switch (hashIt(type)) {
             case INT:
-                value = new IntValue(token);
+                value = Expr(std::stoi(token));
                 break;
             case STRING:
-                value = new StringValue(token);
+                value = Expr(token);
                 break;
-                /*    case LONG:
-                        tableData[i].push_back(new IntField(token));
-                        break; */
-            case CHAR:
-                value = new CharValue(token);   //not working with char TODO: CharValue ctor
-                break;
+
             case DOUBLE:
-               value = new DoubleValue(token);
+                value = Expr(std::stod(token));
                 break;
-                /*    case SHORT:
-                        tableData[i].push_back(new IntField(token));
-                        break; */
+
             default:
                 std::cerr << "Error: Unsupported column type.";
                 break;
@@ -59,16 +49,23 @@ public:
 
     }
 
-     std::ostream &operator<<(std::ostream &os) {
-        value->operator<<(os);
+
+    void getValue(int* retval) {
+        *retval = value.getIntExpr();
+    }
+
+    void getValue(double* retval) {
+        *retval = value.getDoubleExpr();
+    }
+
+    void getValue(std::string* retval) {
+        *retval = value.getStringExp();
+    }
+
+    friend std::ostream &operator<<(std::ostream &os, const Field &field) {
+        os << field.value;
         return os;
     }
-
-    void print (){
-        std::cout << value.getValue();
-    }
-
-
 
 
     typeValue hashIt(std::string const &inString) {

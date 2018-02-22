@@ -6,6 +6,8 @@
 #define JOIN_TABLES_H
 
 #include <iostream>
+#include <vector>
+#include <fstream>
 
 #include "Field.h"
 
@@ -22,6 +24,7 @@ public:
 
 
 
+
 private:
     std::string filePath;
     std::ifstream file;
@@ -30,7 +33,7 @@ private:
 
 
 public:
-    std::vector<std::vector<Field *>> tableData;
+    std::vector<std::vector<Field*>> tableData;
 
 
     Table(std::string filePath) {
@@ -39,8 +42,7 @@ public:
         open();
         loadTableData();
 
-
-        tableData[2][0]->print();
+        //std::cout << *tableData[2][0];
 
     }
 
@@ -68,7 +70,7 @@ public:
         //     ++rowNumber;
 
         for (int i = 0; i < columns.size(); ++i) {
-            tableData.push_back(std::vector<Field *>());
+            tableData.push_back(std::vector<Field*>());
 
         }
 
@@ -111,7 +113,7 @@ public:
 
 
     int getColumnSize() {
-        return columns.size();
+        return (int) columns.size();
     }
 
     int getRowSize() {
