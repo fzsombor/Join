@@ -5,23 +5,35 @@
 #ifndef JOIN_HASHENTRY_H
 #define JOIN_HASHENTRY_H
 
-template<typename KEY, typename VALUE>
+#include "Field.h"
+
+
 class HashEntry {
 private:
-    KEY key;
-    VALUE value;
+    Expr key;
+    int value;
     HashEntry *next;
 public:
-    HashEntry(KEY newKey, VALUE newValue){
+    HashEntry() {
+
+    }
+
+    ~HashEntry() {
+
+        delete next;
+    }
+
+    HashEntry(Expr newKey, int newValue) {
         key = newKey;
         value = newValue;
-        next = NULL;
+        next = nullptr;
     }
-    KEY getKey() {
+
+    Expr getKey() {
         return key;
     }
 
-    VALUE getValue() {
+    int getValue() {
         return value;
     }
 
@@ -29,11 +41,11 @@ public:
         return next;
     }
 
-    void setKey(KEY newKey) {
+    void setKey(Expr newKey) {
         key = newKey;
     }
 
-    void setValue(VALUE newValue) {
+    void setValue(int newValue) {
         value = newValue;
     }
 

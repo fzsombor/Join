@@ -22,9 +22,6 @@ public:
     };
 
 
-
-
-
 private:
     std::string filePath;
     std::ifstream file;
@@ -33,8 +30,12 @@ private:
 
 
 public:
-    std::vector<std::vector<Field*>> tableData;
+    std::vector<std::vector<Field *>> tableData;
 
+
+    Table() {
+
+    }
 
     Table(std::string filePath) {
         this->filePath = filePath;
@@ -70,7 +71,7 @@ public:
         //     ++rowNumber;
 
         for (int i = 0; i < columns.size(); ++i) {
-            tableData.push_back(std::vector<Field*>());
+            tableData.push_back(std::vector<Field *>());
 
         }
 
@@ -109,7 +110,11 @@ public:
 
     }
 
-
+    void printRow(int n) {
+        for (int i = 0; i < getColumnSize(); ++i) {
+            std::cout << *tableData[i][n] << "\t";
+        }
+    }
 
 
     int getColumnSize() {
@@ -119,11 +124,14 @@ public:
     int getRowSize() {
         return rowNumber;
     }
-    std::string getColumnName(int n){
+
+    std::string getColumnName(int n) {
         return columns[n].name;
     }
 
-
+    std::string getColumnType(int n) {
+        return columns[n].type;
+    }
 
 
 };

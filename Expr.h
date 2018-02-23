@@ -20,9 +20,30 @@ class Expr {
         ERROR
     };
 
+
 protected:
     int intExpr;
+    double doubleExpr;
+    std::string stringExp;
+    typeValue type;
+
 public:
+    Expr(int intExpr) : intExpr(intExpr) {
+        type = INT;
+    }
+
+    Expr(double doubleExpr) : doubleExpr(doubleExpr) {
+        type = DOUBLE;
+    }
+
+    Expr(std::string stringExpr) : stringExp(stringExpr) {
+        type = STRING;
+    }
+
+    Expr() {
+        type = ERROR;
+    }
+
     int getIntExpr() const {
         return intExpr;
     }
@@ -39,33 +60,14 @@ public:
         return type;
     }
 
-protected:
-    double doubleExpr;
-    std::string stringExp;
-    typeValue type;
-
-public:
-    Expr(int intExpr) : intExpr(intExpr){
-        type = INT;
-    }
-    Expr(double doubleExpr) : doubleExpr(doubleExpr){
-        type = DOUBLE;
-    }
-    Expr(std::string stringExpr) : stringExp(stringExpr){
-        type = STRING;
-    }
-    Expr(){
-        type = ERROR;
-    }
-
     friend std::ostream &operator<<(std::ostream &os, const Expr &expr) {
 
-        switch (expr.type){
+        switch (expr.type) {
             case INT:
                 os << expr.intExpr;
                 break;
             case DOUBLE:
-                os  << expr.doubleExpr;
+                os << expr.doubleExpr;
                 break;
             case STRING:
                 os << expr.stringExp;
@@ -75,11 +77,10 @@ public:
         return os;
     }
 
+    ~Expr() {
+    }
 
 };
-
-
-
 
 
 #endif //JOIN_EXPR_H

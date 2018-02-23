@@ -50,16 +50,20 @@ public:
     }
 
 
-    void getValue(int* retval) {
+    void getValue(int *retval) {
         *retval = value.getIntExpr();
     }
 
-    void getValue(double* retval) {
+    void getValue(double *retval) {
         *retval = value.getDoubleExpr();
     }
 
-    void getValue(std::string* retval) {
+    void getValue(std::string *retval) {
         *retval = value.getStringExp();
+    }
+
+    Expr getValue() {
+        return value;
     }
 
     friend std::ostream &operator<<(std::ostream &os, const Field &field) {
